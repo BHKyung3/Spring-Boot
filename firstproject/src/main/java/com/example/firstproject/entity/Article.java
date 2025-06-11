@@ -20,9 +20,21 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.AUTO) // 대푯값 자동 생성, 자동생성 기능 추가(숫자가 자동 증가)ㄴ
     private Long id; //기본키 적용
 
-    @Column() // 타이틀 필드 선언, DB 테이블의 테이블 열과 연결됨, nullable = false : not null
+    @Column() // 타이틀 필드 선언, DB 테이블의 테이블 열과 연결됨, nullable = false : not null -> 테이블에서 null값을 허용하지 않겠다
     private String title;
 
     @Column
     private String content;
+    
+    // patch() 메서드 직접 만들기
+    // patch는 일부만 수정할 경우 수정하지 않는 값은 null로 변경이 된다 -> 수정 하지 않는 값을 유지하기 위해 기재
+    public void patch(Article article) {
+
+        if (article.title != null) {
+            title = article.title;
+        }
+        if (article.content != null) {
+            content = article.content;
+        }
+    }
 }

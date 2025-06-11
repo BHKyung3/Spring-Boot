@@ -11,4 +11,5 @@ public interface ArticleRepository extends CrudRepository<Article,Long> { // Lon
 
     List<Article> findAll(); // Repository 인터페이스에서 선언하는 메서드
 
+    Long id(Long id);
 }
