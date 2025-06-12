@@ -71,4 +71,16 @@ public class ArticleApiController {
                 ResponseEntity.status(HttpStatus.NO_CONTENT).build() :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
+
+    // 트랜잭션 연습
+    @PostMapping("transaction-test")
+    //                                            @RequestBody : REST API 방식으로 POST 요청을 받고 있어 기재 + ArticleForm 데이터를 List로 묶은 dtos 매개변수 선언
+    public ResponseEntity<List<Article>> transactionTest(@RequestBody List<ArticleForm> dtos) { // transactionTest 메서드 정의(컨트롤러가 데이터 3개의 요청을 받아 결과를 응답하도록)
+        List<Article> createdList = articleService.createArticles(dtos); // 실제 작업은 서비스에서 진행함으로 articleService의 createArticles 메서드 실행 + 게시글 정보 createdList에 저장
+
+        return (createdList != null) ? //createdList에 내용이 있다면
+                ResponseEntity.status(HttpStatus.OK).body(createdList) : // createdList를 실어 보낸다.
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build(); // 내용이 없다면 빌드만 해서 보낸다
+
+    }
 }
